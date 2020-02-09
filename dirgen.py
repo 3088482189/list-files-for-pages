@@ -1,6 +1,5 @@
 import os
 import time
-import filetype
 import codecs
 
 icon_back = "<i class=\"mdui-list-item-avatar mdui-color-white\"><img src=\"/add/icon/folder-parent.svg\"></img></i>"
