@@ -98,10 +98,29 @@ def get(path):
     # index.write("<link rel=\"stylesheet\" href=\"https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css\">")
     # index.write("<script src=\"https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/js/mdui.min.js\"></script>")
 
-    index.write("<body>")
+    index.write("<body class='mdui-theme-accent-blue'>")
 
     index.write("<div id=\"content-left\" class='left-body'>")
     index.write("<ul class=\"mdui-list\">")
+    index.write("<li class=\"mdui-subheader-inset\">Filter & Search</li>")
+    index.write("<li class='mdui-list-item'>\
+                    <i class='mdui-list-item-avatar mdui-color-white mdui-icon material-icons'>filter_list</i>\
+                    <div class='mdui-list-item-content'>\
+                        <div class='mdui-textfield'>\
+                            <input id='filter_input' class='mdui-textfield-input' placeholder='如有多个关键词请用空格分割'>\
+                        </div>\
+                    </div>\
+                </li>\
+                <li class='mdui-list-item'>\
+                    <i class='mdui-list-item-avatar mdui-color-white mdui-icon material-icons'>search</i>\
+                    <div class='mdui-list-item-content'>\
+                        <div class='mdui-textfield'>\
+                            <input id='search_input' class='mdui-textfield-input' placeholder='如有多个关键词请用空格分割'>\
+                        </div>\
+                    </div>\
+                </li>")
+    
+    
     index.write("<li class=\"mdui-subheader-inset\">Folders</li>")
     index.write("<li href=\"../f_index.html\" class=\"mdui-list-item mdui-ripple\">" +
                 icon_back+"<a href=\"../f_index.html\" class=\"mdui-list-item-content\">"+"..</a></li>")
@@ -120,7 +139,7 @@ def get(path):
                 to_idx = file+"/f_index.html"
                 icon = icon_dir
             index.write("<li href=\""+to_idx +
-                        "\" class=\"mdui-list-item mdui-ripple\">")
+                        "\" class=\"mdui-list-item mdui-ripple obj\">")
             index.write(icon)
             index.write("<a href=\""+to_idx +
                         "\" class=\"mdui-list-item-content\">")
@@ -150,7 +169,7 @@ def get(path):
                 link="javascript:viewcode('bash','"+file+"')"
             elif is_txt(to):
                 icon = icon_txt
-                link="javascript:viewcode('cpp','"+file+"')"
+                link="javascript:viewcode('plain','"+file+"')"
             elif to.lower().endswith(".md"):
                 icon = icon_markdown
                 link="javascript:viewmd('"+file+"')"
@@ -183,7 +202,7 @@ def get(path):
                 icon = icon_other
 
             index.write("<li href=\""+link +
-                        "\" class=\"mdui-list-item mdui-ripple\">")
+                        "\" class=\"mdui-list-item mdui-ripple obj\">")
             index.write(icon)
             index.write("<a href=\""+link +
                         "\" class=\"mdui-list-item-content\">")

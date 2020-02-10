@@ -31,13 +31,13 @@
     <script>
         function viewmd(file) {
             var link = new XMLHttpRequest();
-            $('#preview-raw').attr('href',file);
+            $('#preview-raw').attr('href', file);
             $('#preview-raw').hide()
             link.onreadystatechange = function () {
                 $('#md_out').hide();
                 $('#loading').show()
                 $('#preview-raw').show()
-                if (link.readyState == 4){
+                if (link.readyState == 4) {
                     $('#md_source').html(link.responseText);
                     texme.turn('md_source', 'md_out');
                     $('pre code').each(function (i, block) {
@@ -56,12 +56,12 @@
 
         function viewcode(typ, file) {
             var link = new XMLHttpRequest();
-            $('#preview-raw').attr('href',file);
+            $('#preview-raw').attr('href', file);
             $('#preview-raw').hide()
             link.onreadystatechange = function () {
                 $('#md_out').hide();
                 $('#loading').show()
-                $('#preview-raw').show()            
+                $('#preview-raw').show()
                 if (link.readyState == 4) {
                     $('#md_source').html("```" + typ + "\n" + link.responseText + "\n```\n");
                     texme.turn('md_source', 'md_out');
@@ -78,6 +78,23 @@
             link.open('GET', file, true);
             link.send();
         }
+
+        function filter() {
+            $(".obj").each(function () {
+                $(this).show();
+            });
+            var arr = $('#filter_input').val().split(' ');
+            $.each(arr, function (index,text){
+                text=text.toLowerCase()
+                $(".obj").each(function () {
+                    if ($(this).html().toLowerCase().indexOf(text) == -1)
+                        $(this).hide();
+                });
+            });
+        }
+        $('#filter_input').change(function () {
+            filter();
+        });
     </script>
 </div>
 
