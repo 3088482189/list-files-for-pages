@@ -25,13 +25,12 @@ icon_deb = "<i class=\"mdui-list-item-avatar mdui-color-white\"><img src=\"/add/
 icon_rpm = "<i class=\"mdui-list-item-avatar mdui-color-white\"><img src=\"/add/icon/ar-rpm.svg\"></img></i>"
 icon_apk = "<i class=\"mdui-list-item-avatar mdui-color-white\"><img src=\"/add/icon/ar-apk.svg\"></img></i>"
 
-tmp=open("dirgen-content-right.txt","r")
+content_right=open("dirgen-content-right.txt","r").read()
 
-content_right=tmp.read()
+search=open("search.txt","w")
 
 def file_md_time(file_path):
     return time.strftime('%Y-%m-%d %H:%M', time.localtime(os.stat(file_path).st_mtime))
-
 
 def file_size(file_path):
     fsize = os.path.getsize(file_path)
@@ -57,7 +56,7 @@ def is_img(file):
 
 
 def is_txt(file):
-    typlist = {'txt', 'in', 'out', 'docx'}
+    typlist = {'txt', 'in', 'out'}
     file = file.lower()
     for i in typlist:
         if(file.endswith(i)):
@@ -86,6 +85,28 @@ def is_video(file):
             return 1
     return 0
 
+def path_to_link(path):
+    list=path.split('/')
+    str=''
+    now=''
+    for i in list:
+        if(i=='.'): continue
+        now+='/'+i
+        str+='/'+"<a href='"+now+"/f_index.html' style='color: #2962ff'>"+i+"</a>"
+    if(str==''): str="zcmimi's files"
+    return str
+
+def add_search(file): 
+    if(is_binary_file(file)): return
+    search.write(file+"\n|-|-|-|\n"+"%.2f"%file_size(file)+"\n|-|-|-|\n")
+    flag=0
+    typlist = {"md", "cpp"}
+    for i in typlist:
+        if(file.endswith(i)): 
+            flag=1
+    if(flag): 
+        search.write(open(file,"r").read())
+    search.write("|-|=|-|\n")
 
 def get(path):
     if(os.path.exists(os.path.join(path, "index.html"))):
@@ -94,32 +115,35 @@ def get(path):
 
     index.write("<!DOCTYPE html><html>")
     index.write(
-        "<head><link rel=\"stylesheet\" href=\"/add/mdui/css/mdui.min.css\" /></head>")
+        "<head><title>zcmimi的文件床</title><subtitle>"+path+"</subtitle><link rel=\"stylesheet\" href=\"/add/mdui/css/mdui.min.css\" /></head>")
     # index.write("<link rel=\"stylesheet\" href=\"https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css\">")
     # index.write("<script src=\"https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/js/mdui.min.js\"></script>")
 
-    index.write("<body class='mdui-theme-accent-blue'>")
+    index.write("<body class='mdui-theme-accent-blue padding-top'>")
 
-    index.write("<div id=\"content-left\" class='left-body'>")
-    index.write("<ul class=\"mdui-list\">")
-    index.write("<li class=\"mdui-subheader-inset\">Filter & Search</li>")
-    index.write("<li class='mdui-list-item'>\
-                    <i class='mdui-list-item-avatar mdui-color-white mdui-icon material-icons'>filter_list</i>\
-                    <div class='mdui-list-item-content'>\
-                        <div class='mdui-textfield'>\
-                            <input id='filter_input' class='mdui-textfield-input' placeholder='如有多个关键词请用空格分割'>\
-                        </div>\
+    index.write("<div id=\"content-left\" class='left-body mdui-appbar-with-toolbar padding-top'>")
+
+    index.write("<div class='mdui-appbar mdui-shadow-2 mdui-appbar-fixed' style='width: 30%'>\
+                <div class='mdui-toolbar mdui-color-white'>\
+                    <a href='/f_index.html' class='mdui-btn mdui-btn-icon'><i class='mdui-icon material-icons'>home</i></a>\
+					<span class='mdui-text' id='path' style='text-overflow: clip !important;overflow: scroll;'>"+path_to_link(path)+"</span>\
+					<div class='mdui-toolbar-spacer'></div>\
+                    <button id='filter_button' class='mdui-btn mdui-btn-icon mdui-ripple' onclick='view_filter_textfield()'>\
+                        <i class='mdui-icon material-icons'>filter_list</i>\
+                    </button>\
+                    <div id='filter_textfield' class='mdui-textfield' style='display: none;'>\
+                        <input id='filter_input' class='mdui-textfield-input' placeholder='筛选,多关键词请用|分割'>\
                     </div>\
-                </li>\
-                <li class='mdui-list-item'>\
-                    <i class='mdui-list-item-avatar mdui-color-white mdui-icon material-icons'>search</i>\
-                    <div class='mdui-list-item-content'>\
-                        <div class='mdui-textfield'>\
-                            <input id='search_input' class='mdui-textfield-input' placeholder='如有多个关键词请用空格分割'>\
-                        </div>\
+                    <button id='search_button' class='mdui-btn mdui-btn-icon mdui-ripple' onclick='view_search_textfield()'>\
+                        <i class='mdui-icon material-icons'>search</i>\
+                    </button>\
+                    <div id='search_textfield' class='mdui-textfield' style='display: none;'>\
+                        <input id='search_input' class='mdui-textfield-input' placeholder='搜索,多关键词请用|分割'>\
                     </div>\
-                </li>")
-    
+                </div>\
+            </div><p></p>")
+
+    index.write("<ul class=\"mdui-list\">")    
     
     index.write("<li class=\"mdui-subheader-inset\">Folders</li>")
     index.write("<li href=\"../f_index.html\" class=\"mdui-list-item mdui-ripple\">" +
@@ -212,10 +236,13 @@ def get(path):
             index.write("</a>")
             index.write("<i class='mdui-list-item'>%.2fKB</i>"%file_size(to))
             index.write("</li>")
+            
+            add_search(to)
 
     index.write("</ul>")
 
     index.write("<script src=\"/add/mdui/js/mdui.min.js\"></script>")
+
     index.write("</div>")
 
     index.write(content_right)
@@ -227,3 +254,4 @@ def get(path):
 
 
 get(".")
+search.close()

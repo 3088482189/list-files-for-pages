@@ -21,7 +21,7 @@
     <a id="preview-raw" href="" style="display: none;">
         <li class="mdui-list-item">
             <i class="mdui-list-item-icon mdui-color-white"><img src="/add/icon/download.svg"></i>
-            <div class="mdui-list-item mdui-text-color-black">下载</div>
+            <div id='download_file_name' class="mdui-list-item mdui-text-color-black">下载</div>
         </li>
     </a>
 
@@ -31,6 +31,7 @@
     <script>
         function viewmd(file) {
             var link = new XMLHttpRequest();
+            $('#download_file_name').html("下载"+file)
             $('#preview-raw').attr('href', file);
             $('#preview-raw').hide()
             link.onreadystatechange = function () {
@@ -56,6 +57,7 @@
 
         function viewcode(typ, file) {
             var link = new XMLHttpRequest();
+            $('#download_file_name').html("下载"+file)
             $('#preview-raw').attr('href', file);
             $('#preview-raw').hide()
             link.onreadystatechange = function () {
@@ -83,9 +85,9 @@
             $(".obj").each(function () {
                 $(this).show();
             });
-            var arr = $('#filter_input').val().split(' ');
-            $.each(arr, function (index,text){
-                text=text.toLowerCase()
+            var arr = $('#filter_input').val().split('|');
+            $.each(arr, function (index, text) {
+                text = text.toLowerCase()
                 $(".obj").each(function () {
                     if ($(this).html().toLowerCase().indexOf(text) == -1)
                         $(this).hide();
@@ -95,12 +97,34 @@
         $('#filter_input').change(function () {
             filter();
         });
+
+        var is_filter_textfield_hide = 1,is_search_textfield_hide=1;
+        function view_filter_textfield() {
+            if (is_filter_textfield_hide) $('#filter_textfield').show();
+            else $('#filter_textfield').hide();
+            is_filter_textfield_hide ^= 1;
+        }
+        function view_search_textfield() {
+            if (is_search_textfield_hide) $('#search_textfield').show();
+            else $('#search_textfield').hide();
+            is_search_textfield_hide ^= 1;
+        }
+        $('#path').click(function(){
+            $(this).animate({scrollLeft: $(this).scrollLeft()+$('.mdui-toolbar').width()/3},1000)
+        });
+        function search(){
+            link="/search.html?dir="+escape($('subtitle').html())+"&text="+escape($('#search_input').val());
+            console.log(link);
+            window.open(link);
+        }
+        $('#search_input').change(function () {
+            search();
+        });
     </script>
 </div>
 
 <style>
     #content-left {
-        display: table-row;
         text-align: left;
         width: 30%;
         height: 100%;
@@ -114,7 +138,6 @@
     }
 
     #content-right {
-        display: block;
         text-align: left;
         width: 70%;
         height: 100%;
@@ -127,7 +150,7 @@
         overflow-y: scroll;
     }
 
-    .left-body::-webkit-scrollbar {
+    .left-body::-webkit-scrollbar,#path::-webkit-scrollbar{
         display: none;
     }
 </style>
@@ -137,29 +160,3 @@
 
 <!--custom-->
 <link rel="stylesheet" href="/add/custom.css" type="text/css">
-
-<!--top-->
-<script>
-    $(function () {
-        $(window).scroll(function () {
-            if ($(window).scrollTop() >= 300) {
-                $(".gongyong a").fadeIn(600)
-            } else {
-                $(".gongyong a").fadeOut(600)
-            }
-        });
-        $(".gongyong a").hover(function () {
-            $(this).addClass("hover")
-        }, function () {
-            $(this).removeClass("hover")
-        });
-        $(".top a").click(function () {
-            $("html,body").animate({
-                scrollTop: 0
-            }, 500)
-        })
-    });
-</script>
-<div class="mdui-btn mdui-btn-icon top gongyong"><a href="javascript:void(0);"><i
-            class="mdui-icon material-icons">&#xe316;</i></a></div>
-<!--top end-->
