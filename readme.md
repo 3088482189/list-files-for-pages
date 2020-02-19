@@ -4,7 +4,7 @@
 
 使用python编写
 
-[demo](https://codes.zcmimi.top/f_index.html)
+[demo](https://www.zcmimi.top/f_index.html)
 
 ![](demo.png)
 

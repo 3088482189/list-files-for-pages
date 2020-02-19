@@ -2,9 +2,38 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <title>zcmimi的文件床</title>
     <subtitle>/</subtitle>
     <link rel="stylesheet" href="/add/mdui/css/mdui.min.css" />
+
+    <!-- markdown katex-->
+	<link rel="stylesheet" href="/add/markdown2.css" />
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+		integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+		integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
+        crossorigin="anonymous"></script>
+    <script>
+        function md_turn(input, output) {
+			var text = window.document.getElementById(input).value.trim(), res = "";
+			var list = text.split("$$");
+			var tmp = "";
+			for (i in list) {
+				if (i & 1) res += katex.renderToString(list[i], { displayMode: true });
+				else {
+					var LIST = list[i].split('$'), now = "";
+					for (j in LIST) {
+						if (j & 1) now += '<latex>' + katex.renderToString(LIST[j]) + '</latex>';
+						else now += LIST[j];
+					}
+					res += marked(now);
+				}
+			}
+			window.document.getElementById(output).innerHTML = res;
+		}
+    </script>
 </head>
 
 <body class='mdui-theme-accent-blue'>
@@ -24,19 +53,11 @@
         <ul id="list" class="mdui-list">
 
         </ul>
+        <div class="mdui-bottom-nav"></div>
     </div>
     <div id="content-right" class='right-body'>
         <script src="/add/jq.js"></script>
-        <!-- markdown -->
-        <script>
-            window.texme = {
-                renderOnLoad: false
-            }
-        </script>
-        <script src="/add/md2html.js">
-        </script>
-        <link rel="stylesheet" href="/add/markdown2.css" />
-        <!-- markdown end -->
+        
         <!--highlight-->
         <link rel="stylesheet" href="/add/github.min.css">
         <script src="/add/highlight.min.js"></script>
@@ -67,7 +88,7 @@
                     $('#preview-raw').show()
                     if (link.readyState == 4) {
                         $('#md_source').html(link.responseText);
-                        texme.turn('md_source', 'md_out');
+                        md_turn('md_source', 'md_out');
                         $('pre code').each(function (i, block) {
                             hljs.highlightBlock(block);
                         });
@@ -93,7 +114,7 @@
                     $('#preview-raw').show()
                     if (link.readyState == 4) {
                         $('#md_source').html("```" + typ + "\n" + link.responseText + "\n```\n");
-                        texme.turn('md_source', 'md_out');
+                        md_turn('md_source', 'md_out');
                         $('pre code').each(function (i, block) {
                             hljs.highlightBlock(block);
                         });
@@ -176,8 +197,7 @@
             icon_apk =    "<img src=\"/add/icon/ar-apk.svg\"></img>"
 
             function search(){
-                var dir=geturl("dir"),text=unescape(geturl("text")).split('|');
-                $("#path").html("在"+dir+"的搜索结果");
+                var dir=geturl("dir"),text=unescape(geturl("text")).split('|'),tot=0;
                 console.log(dir+','+text);
                 var s=$.ajax({url:"/search.txt",async:false}).responseText;
                 var items=s.split("|-|=|-|");
@@ -192,6 +212,7 @@
                         var flag=1;
                         for(j in text)if((path.indexOf(text[j])==-1) && (content.indexOf(text[j])==-1))flag=0;
                         if(flag==0)continue;
+                        ++tot;
                         var link=path,icon=icon_other;
                         if(filename.indexOf("cpp")!=-1)icon=icon_cpp,link="javascript:viewcode('cpp','/"+path+"')";
                         else if(filename.indexOf("md")!=-1)icon=icon_markdown,link="javascript:viewmd('/"+path+"')";
@@ -205,7 +226,8 @@
                                     <i class='mdui-list-item'>"+size+"KB</i>\
                                 </li>";
                         $('#list').append(t);
-                        }
+                    }
+                    $("#path").html("在"+dir+"的搜索结果,共"+tot+"个");
                 }
             }
             search();
@@ -240,9 +262,15 @@
             overflow-y: scroll;
         }
 
-        .left-body::-webkit-scrollbar,
-        #path::-webkit-scrollbar {
+        /* chrome */
+        .left-body::-webkit-scrollbar,#path::-webkit-scrollbar{
             display: none;
+        }
+        /* firefox */
+        .left-body,#path{
+            scrollbar-color: transparent transparent;
+            scrollbar-track-color: transparent;
+            -ms-scrollbar-track-color: transparent;
         }
     </style>
 
