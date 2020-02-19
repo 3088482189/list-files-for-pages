@@ -6,6 +6,8 @@
 
 [demo](https://codes.zcmimi.top/f_index.html)
 
+![](demo.png)
+
 ## 特点
 
 -  静态网页
@@ -22,8 +24,6 @@
 
 1. 将`add,dirgen.py,dirgen-content-right.txt,search.html`复制根目录
 2. 运行`dirgen.py`会在各个目录下生成`f_index.html`
-
-![](demo.png)
 
 ## 配置方法
 
