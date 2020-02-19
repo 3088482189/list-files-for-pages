@@ -2,6 +2,12 @@ import os
 import time
 import codecs
 
+site_name="zcmimi's files"
+
+search_typlist = {"md", "cpp"}
+
+search_each_file_length = 102400
+
 icon_back = "<i class=\"mdui-list-item-avatar mdui-color-white\"><img src=\"/add/icon/folder-parent.svg\"></img></i>"
 icon_dir = "<i class=\"mdui-list-item-avatar mdui-color-white mdui-icon material-icons\">folder</i>"
 icon_web_dir = "<i class=\"mdui-list-item-avatar mdui-color-white mdui-icon material-icons\">web</i>"
@@ -93,20 +99,22 @@ def path_to_link(path):
         if(i=='.'): continue
         now+='/'+i
         str+='/'+"<a href='"+now+"/f_index.html' style='color: #2962ff'>"+i+"</a>"
-    if(str==''): str="zcmimi's files"
+    if(str==''): str=site_name
     return str
 
 def add_search(file): 
     if(is_binary_file(file)): return
-    search.write(file+"\n|-|-|-|\n"+"%.2f"%file_size(file)+"\n|-|-|-|\n")
+    search.write(file+"|-|-|-|"+"%.2f"%file_size(file)+"|-|-|-|\n\n")
     flag=0
-    typlist = {"md", "cpp"}
-    for i in typlist:
+    for i in search_typlist:
         if(file.endswith(i)): 
             flag=1
     if(flag): 
-        search.write(open(file,"r").read())
-    search.write("|-|=|-|\n")
+        t=open(file,"r").read()
+        if(len(t)>search_each_file_length):
+            search.write(t[0:search_each_file_length])
+        else: search.write(t)
+    search.write("\n\n|-|=|-|\n\n")
 
 def get(path):
     if(os.path.exists(os.path.join(path, "index.html"))):
@@ -114,10 +122,7 @@ def get(path):
     index = open(os.path.join(path, "f_index.html"), "w")
 
     index.write("<!DOCTYPE html><html>")
-    index.write(
-        "<head><title>zcmimi的文件床</title><subtitle>"+path+"</subtitle><link rel=\"stylesheet\" href=\"/add/mdui/css/mdui.min.css\" /></head>")
-    # index.write("<link rel=\"stylesheet\" href=\"https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css\">")
-    # index.write("<script src=\"https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/js/mdui.min.js\"></script>")
+    index.write("<head><meta charset='utf-8'><title>"+site_name+"</title><subtitle>"+path+"</subtitle><link rel=\"stylesheet\" href=\"/add/mdui/css/mdui.min.css\" /></head>")
 
     index.write("<body class='mdui-theme-accent-blue padding-top'>")
 
@@ -242,6 +247,8 @@ def get(path):
     index.write("</ul>")
 
     index.write("<script src=\"/add/mdui/js/mdui.min.js\"></script>")
+
+    index.write("<div class='mdui-bottom-nav'></div>")
 
     index.write("</div>")
 

@@ -63,7 +63,7 @@
         var n, e=window.document.getElementById(input).value.trim().replace('<','＜'),
             t = window.document.getElementById(output);
         void 0 !== window.document.title && "" !== window.document.title || (n = e.split("\n", 1)[0].replace(/^\s*#*\s*|\s*#*\s*$/g, ""), window.document.title = n);
-        t.innerHTML = d.render(e), m.useMathJax && window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub, t]), void 0 !== m.onRenderPage && m.onRenderPage()
+        t.innerHTML = d.render(e).replace("＜","&lt;"), m.useMathJax && window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub, t]), void 0 !== m.onRenderPage && m.onRenderPage()
     },
     d.main = function () {
         d.setDefaultOptions(), "undefined" != typeof window ? (! function () {

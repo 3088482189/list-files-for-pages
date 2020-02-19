@@ -1,15 +1,34 @@
-<!DOCTYPE html><html><head><title>zcmimi的文件床</title><subtitle>./add/mdui/icons</subtitle><link rel="stylesheet" href="/add/mdui/css/mdui.min.css" /></head><body class='mdui-theme-accent-blue padding-top'><div id="content-left" class='left-body mdui-appbar-with-toolbar padding-top'><div class='mdui-appbar mdui-shadow-2 mdui-appbar-fixed' style='width: 30%'>                <div class='mdui-toolbar mdui-color-white'>                    <a href='/f_index.html' class='mdui-btn mdui-btn-icon'><i class='mdui-icon material-icons'>home</i></a>					<span class='mdui-text' id='path' style='text-overflow: clip !important;overflow: scroll;'>/<a href='/add/f_index.html' style='color: #2962ff'>add</a>/<a href='/add/mdui/f_index.html' style='color: #2962ff'>mdui</a>/<a href='/add/mdui/icons/f_index.html' style='color: #2962ff'>icons</a></span>					<div class='mdui-toolbar-spacer'></div>                    <button id='filter_button' class='mdui-btn mdui-btn-icon mdui-ripple' onclick='view_filter_textfield()'>                        <i class='mdui-icon material-icons'>filter_list</i>                    </button>                    <div id='filter_textfield' class='mdui-textfield' style='display: none;'>                        <input id='filter_input' class='mdui-textfield-input' placeholder='筛选,多关键词请用|分割'>                    </div>                    <button id='search_button' class='mdui-btn mdui-btn-icon mdui-ripple' onclick='view_search_textfield()'>                        <i class='mdui-icon material-icons'>search</i>                    </button>                    <div id='search_textfield' class='mdui-textfield' style='display: none;'>                        <input id='search_input' class='mdui-textfield-input' placeholder='搜索,多关键词请用|分割'>                    </div>                </div>            </div><p></p><ul class="mdui-list"><li class="mdui-subheader-inset">Folders</li><li href="../f_index.html" class="mdui-list-item mdui-ripple"><i class="mdui-list-item-avatar mdui-color-white"><img src="/add/icon/folder-parent.svg"></img></i><a href="../f_index.html" class="mdui-list-item-content">..</a></li><li href="material-icons/f_index.html" class="mdui-list-item mdui-ripple obj"><i class="mdui-list-item-avatar mdui-color-white mdui-icon material-icons">folder</i><a href="material-icons/f_index.html" class="mdui-list-item-content"><div class="mdui-list-item-title">material-icons</div><div class="mdui-list-item-text">2020-02-09 10:05</div></a></li><li class="mdui-subheader-inset">Files</li></ul><script src="/add/mdui/js/mdui.min.js"></script></div><div id="content-right" class='right-body'>
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>zcmimi's files</title><subtitle>./add/mdui/icons</subtitle><link rel="stylesheet" href="/add/mdui/css/mdui.min.css" /></head><body class='mdui-theme-accent-blue padding-top'><div id="content-left" class='left-body mdui-appbar-with-toolbar padding-top'><div class='mdui-appbar mdui-shadow-2 mdui-appbar-fixed' style='width: 30%'>                <div class='mdui-toolbar mdui-color-white'>                    <a href='/f_index.html' class='mdui-btn mdui-btn-icon'><i class='mdui-icon material-icons'>home</i></a>					<span class='mdui-text' id='path' style='text-overflow: clip !important;overflow: scroll;'>/<a href='/add/f_index.html' style='color: #2962ff'>add</a>/<a href='/add/mdui/f_index.html' style='color: #2962ff'>mdui</a>/<a href='/add/mdui/icons/f_index.html' style='color: #2962ff'>icons</a></span>					<div class='mdui-toolbar-spacer'></div>                    <button id='filter_button' class='mdui-btn mdui-btn-icon mdui-ripple' onclick='view_filter_textfield()'>                        <i class='mdui-icon material-icons'>filter_list</i>                    </button>                    <div id='filter_textfield' class='mdui-textfield' style='display: none;'>                        <input id='filter_input' class='mdui-textfield-input' placeholder='筛选,多关键词请用|分割'>                    </div>                    <button id='search_button' class='mdui-btn mdui-btn-icon mdui-ripple' onclick='view_search_textfield()'>                        <i class='mdui-icon material-icons'>search</i>                    </button>                    <div id='search_textfield' class='mdui-textfield' style='display: none;'>                        <input id='search_input' class='mdui-textfield-input' placeholder='搜索,多关键词请用|分割'>                    </div>                </div>            </div><p></p><ul class="mdui-list"><li class="mdui-subheader-inset">Folders</li><li href="../f_index.html" class="mdui-list-item mdui-ripple"><i class="mdui-list-item-avatar mdui-color-white"><img src="/add/icon/folder-parent.svg"></img></i><a href="../f_index.html" class="mdui-list-item-content">..</a></li><li href="material-icons/f_index.html" class="mdui-list-item mdui-ripple obj"><i class="mdui-list-item-avatar mdui-color-white mdui-icon material-icons">folder</i><a href="material-icons/f_index.html" class="mdui-list-item-content"><div class="mdui-list-item-title">material-icons</div><div class="mdui-list-item-text">2020-02-09 10:05</div></a></li><li class="mdui-subheader-inset">Files</li></ul><script src="/add/mdui/js/mdui.min.js"></script><div class='mdui-bottom-nav'></div></div><div id="content-right" class='right-body'>
     <script src="/add/jq.js"></script>
-    <!-- markdown -->
+
+    <!-- markdown katex-->
+	<link rel="stylesheet" href="/add/markdown2.css" />
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+		integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+		integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
+        crossorigin="anonymous"></script>
     <script>
-        window.texme = {
-            renderOnLoad: false
-        }
+        function md_turn(input, output) {
+			var text = window.document.getElementById(input).value.trim(), res = "";
+			var list = text.split("$$");
+			var tmp = "";
+			for (i in list) {
+				if (i & 1) res += katex.renderToString(list[i], { displayMode: true });
+				else {
+					var LIST = list[i].split('$'), now = "";
+					for (j in LIST) {
+						if (j & 1) now += '<latex>' + katex.renderToString(LIST[j]) + '</latex>';
+						else now += LIST[j];
+					}
+					res += marked(now);
+				}
+			}
+			window.document.getElementById(output).innerHTML = res;
+		}
     </script>
-    <script src="/add/md2html.js">
-    </script>
-    <link rel="stylesheet" href="/add/markdown2.css" />
-    <!-- markdown end -->
+
     <!--highlight-->
     <link rel="stylesheet" href="/add/github.min.css">
     <script src="/add/highlight.min.js"></script>
@@ -39,8 +58,10 @@
                 $('#loading').show()
                 $('#preview-raw').show()
                 if (link.readyState == 4) {
-                    $('#md_source').html(link.responseText);
-                    texme.turn('md_source', 'md_out');
+                    if(link.responseText.length<=102400)
+                        $('#md_source').html(link.responseText);
+                    else $('#md_source').html(link.responseText.substr(0,102400)+"\n\n ### 文件过大,请下载查看");
+                    md_turn('md_source', 'md_out');
                     $('pre code').each(function (i, block) {
                         hljs.highlightBlock(block);
                     });
@@ -65,8 +86,10 @@
                 $('#loading').show()
                 $('#preview-raw').show()
                 if (link.readyState == 4) {
+                    if(link.responseText.length<=204800)
                     $('#md_source').html("```" + typ + "\n" + link.responseText + "\n```\n");
-                    texme.turn('md_source', 'md_out');
+                    else $('#md_source').html("```" + typ + "\n" + link.responseText.substr(0,204800) + "\n```\n文件较大,请下载查看");
+                    md_turn('md_source', 'md_out');
                     $('pre code').each(function (i, block) {
                         hljs.highlightBlock(block);
                     });
@@ -150,8 +173,15 @@
         overflow-y: scroll;
     }
 
+    /* chrome */
     .left-body::-webkit-scrollbar,#path::-webkit-scrollbar{
         display: none;
+    }
+    /* firefox */
+    .left-body,#path{
+        scrollbar-color: transparent transparent;
+        scrollbar-track-color: transparent;
+        -ms-scrollbar-track-color: transparent;
     }
 </style>
 

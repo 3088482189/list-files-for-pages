@@ -6,7 +6,7 @@ html, body {
         background:#fefefe;
 	}
 body {
-	font: 17px "Vollkorn", Palatino, Times;
+	font: 17px Monaco,Hack,"微软雅黑","Vollkorn", Palatino, Times;
 	color: #333;
 	line-height: 1.4;
 	text-align: justify;
