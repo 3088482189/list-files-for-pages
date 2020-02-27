@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>{%SITE_NAME%}</title>
+    <!--加载-->
+    <script src='/dirgen_assets/nprogress.js'></script>
+    <link rel='stylesheet' href='/dirgen_assets/nprogress.css'>
+    <!--加载 end-->
+    <link rel="stylesheet" href="/dirgen_assets/mdui_custom/css/mdui.custom.min.css">
+    <script src="/dirgen_assets/mdui_custom/js/mdui.custom.min.js"></script>
+    <!--custom-->
+    <link rel="stylesheet" href="/dirgen_assets/custom.css">
+    <!--highlight-->
+    <link rel="stylesheet" href="/dirgen_assets/github.min.css">
+    <script src="/dirgen_assets/highlight.min.js"></script>
+    <script src="/dirgen_assets/highlightjs-line-numbers.min.js"></script>
+    <script src="/dirgen_assets/highlightjs-copy-button.min.js"></script>
+    <!--highlight end-->
+    <!-- markdown katex-->
+    <link rel="stylesheet" href="/dirgen_assets/markdown2.css">
+    <script src="/dirgen_assets/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <script src="/dirgen_assets/katex.min.js"></script>
+    <script src='/dirgen_assets/functions.js'></script>
+</head>
+
+<body class='mdui-theme-accent-blue padding-top'>
+    <div id="content-left" class='left-body mdui-appbar-with-toolbar padding-top mdui-shadow-2'>
+        <div id="path" hidden>{%PATH%}</div>
+        <div class='mdui-appbar mdui-appbar-fixed mdui-shadow-1' style='width: 30%;'>
+            <div class='mdui-toolbar mdui-color-white'>
+                <a href='/f_index.html' class='mdui-btn mdui-btn-icon'>
+                    <i class='mdui-icon material-icons'>home</i>
+                </a>
+                <span id='path_and_link'class='mdui-text' style='text-overflow: clip;overflow: scroll;' onclick="
+                    $(this).animate({scrollLeft:$(this).scrollLeft()+$('.mdui-toolbar').width()/3}, 1000)"
+                >{%PATH_and_LINK%}</span>
+                <div class='mdui-toolbar-spacer'></div>
+                <div class="mdui-textfield mdui-textfield-expandable">
+                    <button class="mdui-textfield-icon mdui-btn mdui-btn-icon"><i
+                            class="mdui-icon material-icons">filter_list</i></button>
+                    <input id='filter_input' class="mdui-textfield-input" type="text" placeholder="筛选,多关键词请用|分割"
+                        onchange="filter()">
+                    <button class="mdui-textfield-close mdui-btn mdui-btn-icon"><i
+                            class="mdui-icon material-icons">close</i></button>
+                </div>
+                <div class="mdui-textfield mdui-textfield-expandable">
+                    <button class="mdui-textfield-icon mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></button>
+                    <input id='search_input' class="mdui-textfield-input" type="text" placeholder="搜索,多关键词请用|分割"
+                        onchange="search();">
+                    <button id='search_icon' class="mdui-textfield-close mdui-btn mdui-btn-icon"><i
+                            class="mdui-icon material-icons">close</i></button>
+                </div>
+            </div>
+        </div>
+        <button id="return_to_filelist" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-blue" onclick="hide('#searchlist'),show('#filelist'),this.hidden=1" style="position: fixed;" hidden>
+            <i class="mdui-icon mdui-icon-left   material-icons">arrow_back</i>
+            返回文件列表
+        </button>
+        <ul id="filelist" class="mdui-list">{%FILELIST%}</ul>
+        <ul id="searchlist" class="mdui-list"></ul>
+        <div class='mdui-bottom-nav'></div>
+        <div class="mdui-bottom-nav"></div>
+        <div class="mdui-bottom-nav"></div>
+        <div class="mdui-bottom-nav"></div>
+        <div class="mdui-bottom-nav"></div>
+    </div>
+    <div id="content-right" class='mdui-shadow-0 padding-top'>
+        <div class="mdui-appbar mdui-appbar-fixed mdui-shadow-1" style="width: 70%;right: 0 !important;left: auto;">
+            <div class="mdui-toolbar mdui-color-white">
+                <div class="mdui-typo-title">preview</div>
+                <a id="preview-raw" href="" hidden>
+                    <li class="mdui-list-item">
+                        <button class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">file_download</i></button>
+                        <div id='download_file_name' class="mdui-text-color-theme">下载</div>
+                    </li>
+                </a>
+                <button id='close_preview' class="mdui-btn mdui-btn-icon" onclick="close_preview()" hidden>
+                    <i class="mdui-icon material-icons">close</i>
+                </button>
+                <div class="mdui-toolbar-spacer"></div>
+                <button id=togglenight onclick="night()" class="mdui-btn mdui-btn-icon "><i
+                    class="mdui-icon material-icons"></i></button>
+            </div>
+        </div>
+        <!-- 占位--><div class="mdui-toolbar"></div>
+        <textarea id="md_source" hidden></textarea>
+        <div id="md_out" style="margin: 12px;"></div>
+        <!-- 占位--><p></p>
+        <div id="loading" hidden>　loading...</div>
+        <div class='mdui-bottom-nav'></div>
+        <div class="mdui-bottom-nav"></div>
+        <div class="mdui-bottom-nav"></div>
+        <div class="mdui-bottom-nav"></div>
+        <div class="mdui-bottom-nav"></div>
+    </div>
+    {%CUSTOM_HTML%}
+</body>
+<script src="/dirgen_assets/pjax.js"></script>
+<script>
+var pjax=new Pjax({elements: "a",selectors: ["#content-left"]});
+document.addEventListener('pjax:send',NProgress.start);
+document.addEventListener('pjax:complete',NProgress.done);
+</script>
+<div id="nightmode"></div>
+
+</html>

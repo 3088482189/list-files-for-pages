@@ -1,0 +1,10 @@
+{
+    "site_name": "files",
+    "use_cdn": false,
+    "search_each_file_length": 102400,
+    "search_typlist": [
+        "md",
+        "cpp"
+    ],
+    "htmlmin": false
+}

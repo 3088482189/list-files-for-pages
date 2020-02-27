@@ -1,0 +1,33 @@
+<li href="../f_index.html" class="mdui-list-item mdui-ripple">
+    <i class="mdui-list-item-avatar mdui-color-white"><img src="/dirgen_assets/icon/folder-parent.svg"></i>
+    <a href="../f_index.html" class="mdui-list-item-content">..</a>
+</li>
+<div class="mdui-card" style="margin: 5px;">
+    <div class="mdui-card-primary">
+        <div class="mdui-card-primary-title">当前目录被密码保护</div>
+        <!-- <div class="mdui-card-primary-subtitle">Subtitle</div> -->
+    </div>
+    <div class="mdui-card-content">
+        <div id='textfield' class='mdui-textfield mdui-textfield-floating-label'>
+            <label class='mdui-textfield-label'>请输入密码:</label>
+            <input id='passwd' class='mdui-textfield-input' type='password' onchange='chk()'>
+        </div>
+    </div>
+    <script src='/dirgen_assets/md5.js'></script>
+<script>
+document.getElementById("passwd").focus();
+var t,ans="{%PASSWD_MD5%}";
+function chk(){
+    t=document.getElementById("passwd").value;
+    if (md5(t)!=ans) {
+        document.getElementById("passwd").value="";
+        mdui.snackbar({message: '密码错误',position: 'left-top',timeout: 500});
+        return;
+    }
+    var text="{%ENCRYPT%}";
+    t=t.split('').reverse().join('');
+    text=text.replace(new RegExp(t,'g'),'w');
+    document.getElementById('filelist').innerHTML=decodeURIComponent(atob(text));
+}
+</script>
+</div>

@@ -1,0 +1,42 @@
+#content-left{
+    text-align: left;
+    width: 30%;
+    height: 100%;
+    float: left;
+    clear: left;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+#content-right{
+    text-align: left;
+    width: 70%;
+    height: 100%;
+    float: right;
+    clear: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+/* chrome */
+.left-body::-webkit-scrollbar,#path_and_link::-webkit-scrollbar{display: none;}
+/* firefox */
+.left-body,#path_and_link{scrollbar-color: transparent transparent;scrollbar-track-color: transparent;-ms-scrollbar-track-color: transparent;}
+
+pre code,
+pre tt {
+    padding: 8px;
+}
+
+code.hljs.hljs-line-numbers {
+    color: #bbb;
+}
+
+body {
+    font-size: 17px;
+}
+/*add your custom css code below*/
